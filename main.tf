@@ -72,7 +72,7 @@ resource "google_service_account_iam_binding" "main" {
 
 module "tf_state_bucket" {
   source  = "FFerrinho/bucket/google"
-  version = "1.0.1"
+  version = "1.0.2"
 
 
   name       = "tf-state"
