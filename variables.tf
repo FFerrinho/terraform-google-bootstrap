@@ -1,10 +1,17 @@
 variable "organization_id" {
   description = "The organization id."
   type        = string
+  default     = null
 }
 
 variable "organization_domain" {
   description = "The organization domain."
+  type        = string
+  default     = null
+}
+
+variable "billing_account" {
+  description = "The billing account id."
   type        = string
 }
 
@@ -34,6 +41,12 @@ variable "auto_create_network" {
   description = "If the project should auto create a network."
   type        = bool
   default     = false
+}
+
+variable "project_deletion_policy" {
+  description = "The deletion policy for the project."
+  type        = string
+  default     = "DELETE"
 }
 
 variable "labels" {
@@ -91,7 +104,8 @@ variable "sa_users" {
   type        = set(string)
 
   validation {
-    condition     = can(regex("^(user:|group:|serviceAccount:).+", var.sa_users))
+    #condition     = can(regex("^(user:|group:|serviceAccount:).+", var.sa_users))
+    condition     = can(regex("^(user:|group:|serviceAccount:).+", join(",", var.sa_users)))
     error_message = "IAM user must be prefixed with 'user:', 'group:', or 'serviceAccount:'"
   }
 }

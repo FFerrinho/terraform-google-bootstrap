@@ -3,8 +3,13 @@ locals {
 }
 
 data "google_organization" "main" {
-  organization = var.organization_id
-  domain       = var.organization_domain
+  organization = var.organization_id != null ? var.organization_id : null
+  domain       = var.organization_domain != null ? var.organization_domain : null
+}
+
+data "google_billing_account" "main" {
+  billing_account = var.billing_account
+  depends_on      = [data.google_organization.main]
 }
 
 # If var.create_folder and var.folder_name are not specified, the project will be created at the organization level.
@@ -16,7 +21,7 @@ resource "google_folder" "main" {
 }
 
 data "google_folder" "main" {
-  folder     = var.folder_name
+  folder     = google_folder.main["folder"].id
   depends_on = [google_folder.main]
 }
 
@@ -29,7 +34,9 @@ resource "google_project" "main" {
   project_id          = join("-", [replace(var.project_display_name, " ", "-"), random_id.main.dec])
   org_id              = var.folder_name == "" ? data.google_organization.main.id : null
   folder_id           = var.folder_name != "" ? local.folder_id : null
+  billing_account     = data.google_billing_account.main.billing_account
   auto_create_network = var.auto_create_network
+  deletion_policy     = var.project_deletion_policy
 
   labels = merge(
     var.labels,
@@ -38,6 +45,16 @@ resource "google_project" "main" {
       purpose = "automation"
     }
   )
+}
+
+locals {
+  project_default_services = ["serviceusage.googleapis.com", "cloudresourcemanager.googleapis.com"]
+}
+
+resource "google_project_service" "main" {
+  for_each = toset(local.project_default_services)
+  project  = google_project.main.project_id
+  service  = each.key
 }
 
 resource "google_service_account" "main" {
@@ -71,9 +88,7 @@ resource "google_service_account_iam_binding" "main" {
 }
 
 module "tf_state_bucket" {
-  source  = "FFerrinho/bucket/google"
-  version = "1.0.2"
-
+  source = "../terraform-google-bucket"
 
   name       = "tf-state"
   location   = var.region
