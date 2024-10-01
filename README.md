@@ -60,3 +60,4 @@
 | Name | Description |
 |------|-------------|
 | <a name="output_folder_name"></a> [folder\_name](#output\_folder\_name) | The name fo the folder created or used in the bootstrap. |
+| <a name="output_project_name"></a> [project\_name](#output\_project\_name) | The name of the project created. |
