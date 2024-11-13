@@ -88,7 +88,8 @@ resource "google_service_account_iam_binding" "main" {
 }
 
 module "tf_state_bucket" {
-  source = "../terraform-google-bucket"
+  source  = "FFerrinho/bucket/google"
+  version = "1.0.2"
 
   name       = "tf-state"
   location   = var.region
