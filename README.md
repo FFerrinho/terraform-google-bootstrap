@@ -15,7 +15,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_tf_state_bucket"></a> [tf\_state\_bucket](#module\_tf\_state\_bucket) | ../terraform-google-bucket | n/a |
+| <a name="module_tf_state_bucket"></a> [tf\_state\_bucket](#module\_tf\_state\_bucket) | FFerrinho/bucket/google | 1.0.2 |
 
 ## Resources
 
@@ -61,3 +61,6 @@
 |------|-------------|
 | <a name="output_folder_name"></a> [folder\_name](#output\_folder\_name) | The name fo the folder created or used in the bootstrap. |
 | <a name="output_project_name"></a> [project\_name](#output\_project\_name) | The name of the project created. |
+| <a name="output_sa_users"></a> [sa\_users](#output\_sa\_users) | The users that will impersonate the service account. |
+| <a name="output_service_account"></a> [service\_account](#output\_service\_account) | The service account created. |
+| <a name="output_tf_state_bucket"></a> [tf\_state\_bucket](#output\_tf\_state\_bucket) | The name of the bucket created for the terraform state. |

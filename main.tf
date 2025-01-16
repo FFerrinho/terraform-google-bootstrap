@@ -8,6 +8,7 @@ data "google_organization" "main" {
 }
 
 data "google_billing_account" "main" {
+  count           = can(regex("^[0-9A-F]{6}-[0-9A-F]{6}-[0-9A-F]{6}$", var.billing_account)) ? 0 : 1
   billing_account = var.billing_account
   depends_on      = [data.google_organization.main]
 }
@@ -21,7 +22,7 @@ resource "google_folder" "main" {
 }
 
 data "google_folder" "main" {
-  folder     = google_folder.main["folder"].id
+  folder     = var.create_folder != true ? var.parent_folder : google_folder.main["folder"].id
   depends_on = [google_folder.main]
 }
 
@@ -34,7 +35,7 @@ resource "google_project" "main" {
   project_id          = join("-", [replace(var.project_display_name, " ", "-"), random_id.main.dec])
   org_id              = var.folder_name == "" ? data.google_organization.main.id : null
   folder_id           = var.folder_name != "" ? local.folder_id : null
-  billing_account     = data.google_billing_account.main.billing_account
+  billing_account     = can(regex("^[0-9A-F]{6}-[0-9A-F]{6}-[0-9A-F]{6}$", var.billing_account)) ? var.billing_account : data.google_billing_account.main[0].billing_account
   auto_create_network = var.auto_create_network
   deletion_policy     = var.project_deletion_policy
 
