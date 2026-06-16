@@ -18,6 +18,7 @@ variable "billing_account" {
 variable "create_folder" {
   description = "If a folder will be created along the bootstrap."
   type        = bool
+  default = false
 }
 
 variable "folder_name" {
