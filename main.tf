@@ -92,10 +92,11 @@ module "tf_state_bucket" {
   source  = "FFerrinho/bucket/google"
   version = "1.0.2"
 
-  name       = "tf-state"
-  location   = var.region
-  project    = google_project.main.project_id
-  versioning = true
+  name                        = "tf-state"
+  location                    = var.region
+  project                     = google_project.main.project_id
+  versioning                  = true
+  uniform_bucket_level_access = true
   labels = {
     purpose = "state"
   }
