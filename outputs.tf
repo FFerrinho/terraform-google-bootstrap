@@ -5,7 +5,7 @@ output "folder_name" {
 
 output "project_name" {
   description = "The name of the project created."
-  value       = google_project.main.name  
+  value       = google_project.main.name
 }
 
 output "service_account" {

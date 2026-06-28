@@ -18,7 +18,7 @@ variable "billing_account" {
 variable "create_folder" {
   description = "If a folder will be created along the bootstrap."
   type        = bool
-  default = false
+  default     = false
 }
 
 variable "folder_name" {
@@ -54,11 +54,6 @@ variable "labels" {
   description = "Additional labels for the resources."
   type        = map(string)
   default     = {}
-}
-
-variable "service_account_id" {
-  description = "The service account id."
-  type        = string
 }
 
 variable "service_account_display_name" {

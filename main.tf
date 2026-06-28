@@ -56,6 +56,11 @@ resource "google_project_service" "main" {
   for_each = toset(local.project_default_services)
   project  = google_project.main.project_id
   service  = each.key
+
+  # Provider 7.0 changed the default of disable_on_destroy from true to false.
+  # Set explicitly so the upgrade is behavior-neutral. These are foundational
+  # APIs; set to false if you prefer leaving them enabled on destroy.
+  disable_on_destroy = true
 }
 
 resource "google_service_account" "main" {
