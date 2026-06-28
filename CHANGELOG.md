@@ -5,7 +5,7 @@ All notable changes to this module are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.0] - 2026-06-28
 
 ### Changed
 
@@ -26,3 +26,6 @@ and this module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 
 - Authored `README.md` content (description, features, usage, folder-placement matrix, prerequisites)
   and a `.terraform-docs.yml` to pin the generated reference block.
+
+[2.0.0]: https://github.com/FFerrinho/terraform-google-bootstrap/compare/1.2.3...2.0.0
+[1.2.3]: https://github.com/FFerrinho/terraform-google-bootstrap/releases/tag/1.2.3
